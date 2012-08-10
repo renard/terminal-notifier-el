@@ -5,7 +5,7 @@
 ;; Author: Sébastien Gross <seb•ɑƬ•chezwam•ɖɵʈ•org>
 ;; Keywords: emacs, 
 ;; Created: 2012-08-08
-;; Last changed: 2012-08-10 16:37:55
+;; Last changed: 2012-08-10 16:45:01
 ;; Licence: WTFPL, grab your copy here: http://sam.zoy.org/wtfpl/
 
 ;; This file is NOT part of GNU Emacs.
@@ -57,6 +57,7 @@ directly (see `terminal-notifier-notify') ."
     (process-put proc :id id)
     (set-process-sentinel proc 'terminal-notifier-sentinel)))
 
+;;;###autoload
 (defun terminal-notifier-notify (title message &optional timeout)
   "Display MESSAGE with TITLE in MacOSX notification center using
 terminal-notify.app.
@@ -72,16 +73,18 @@ TIMEOUT is nil."
        "-group"  ,id)
      timeout id)))
 
+;;;###autoload
 (defalias 'notify 'terminal-notifier-notify)
 
+;;;###autoload
 (defun terminal-notifier-notifications-notify (&rest params)
   "`notification-notify' compatibility."
   (terminal-notifier-notify (plist-get params :title)
 			    (plist-get params :body)
 			    (plist-get params :timeout)))
 
+;;;###autoload
 (defalias 'notifications-notify 'terminal-notifier-notifications-notify)
-
 
 (provide 'terminal-notifier)
 
