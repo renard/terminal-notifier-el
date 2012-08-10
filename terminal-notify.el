@@ -5,7 +5,7 @@
 ;; Author: Sébastien Gross <seb•ɑƬ•chezwam•ɖɵʈ•org>
 ;; Keywords: emacs, 
 ;; Created: 2012-08-08
-;; Last changed: 2012-08-10 16:45:01
+;; Last changed: 2012-08-10 16:47:48
 ;; Licence: WTFPL, grab your copy here: http://sam.zoy.org/wtfpl/
 
 ;; This file is NOT part of GNU Emacs.
@@ -75,6 +75,9 @@ TIMEOUT is nil."
 
 ;;;###autoload
 (defalias 'notify 'terminal-notifier-notify)
+
+;;;###autoload
+(defalias 'growl 'terminal-notifier-notify)
 
 ;;;###autoload
 (defun terminal-notifier-notifications-notify (&rest params)
