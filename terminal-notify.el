@@ -5,7 +5,7 @@
 ;; Author: Sébastien Gross <seb•ɑƬ•chezwam•ɖɵʈ•org>
 ;; Keywords: emacs, 
 ;; Created: 2012-08-08
-;; Last changed: 2013-02-11 00:54:34
+;; Last changed: 2014-07-18 09:58:18
 ;; Licence: WTFPL, grab your copy here: http://sam.zoy.org/wtfpl/
 
 ;; This file is NOT part of GNU Emacs.
@@ -43,7 +43,8 @@ needed."
 	(when (and timeout id (> timeout 0))
 	  (run-at-time timeout nil
 		       'terminal-notifier-run-cmd
-		       `("-remove" ,id)))))))
+		       `("-sender" ,terminal-notifier-emacs-bundle-id
+			 "-remove" ,id)))))))
 
 (defun terminal-notifier-run-cmd (args &optional timeout id)
   "Low level function to run terminal-notifier. Should be used
@@ -54,6 +55,7 @@ directly (see `terminal-notifier-notify') ."
 		   (format " Terminal-notifier %s" (random))))
 	 (proc (apply 'start-process (car cmd-line)
 		      cmd-buf (car cmd-line) (cdr cmd-line))))
+    (message "Run command: %S" cmd-line)
     (process-put proc :cmd-buf cmd-buf)
     (process-put proc :timeout timeout)
     (process-put proc :id id)
@@ -72,6 +74,7 @@ TIMEOUT is nil."
     (terminal-notifier-run-cmd
      `("-message" ,message "-title" ,title
        "-activate" ,terminal-notifier-emacs-bundle-id
+       "-sender" ,terminal-notifier-emacs-bundle-id
        "-group"  ,id)
      timeout id)))
 
